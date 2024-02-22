@@ -7,6 +7,10 @@ RUN mvn clean package -Dmaven.test.skip=true # Build jar file
 
 # Stage 2: Create the final Docker image
 FROM openjdk:17-jdk
+
+#Set the JAVA_HOME environment variable
+ENV JAVA_HOME /java/jdk-21
+
 COPY --from=build /home/app/target/*.jar watchlist.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "watchlist.jar"]
